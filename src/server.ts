@@ -5,7 +5,7 @@ const app = fastify()
 //GET,POST, PUT, PATCH, DELETE
 app.get('/hello', (req, res) => {
 
-	return 'Hello World'
+	return 'Hello Test'
 })
 
 app.listen({
