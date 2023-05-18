@@ -1,15 +1,20 @@
-import fastify from "fastify";
+import fastify from 'fastify'
 
 const app = fastify()
 
-//GET,POST, PUT, PATCH, DELETE
+// GET,POST, PUT, PATCH, DELETE
 app.get('/hello', (req, res) => {
-
-	return 'Hello Test'
+  return 'Hello Test'
 })
 
-app.listen({
-	port:3333,
-}).then(()=> {
-	console.log('http server listening on port 3333')
-})
+app
+  .listen({
+    port: 3333,
+  })
+  .then(() => {
+    console.log('http server listening on port 3333')
+  })
+
+// EcmaScript Lint -- maneira de padronizar
+
+// ex: ; é facultativo... ' ou ""... tudo tem que estar padronizado no código inteiro.
