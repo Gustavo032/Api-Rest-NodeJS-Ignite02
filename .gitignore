@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules
-/tmp/app.db
+/db/app.db
 /.pnp
 .pnp.js
 
