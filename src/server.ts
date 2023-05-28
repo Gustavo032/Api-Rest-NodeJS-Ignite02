@@ -1,15 +1,13 @@
 import fastify from 'fastify'
-import { knex } from './database'
 import { env } from './env'
+import { transactionsRoutes } from './routes/transactions'
 
 const app = fastify()
 
 // GET,POST, PUT, PATCH, DELETE
-app.get('/hello', async (req, res) => {
-  const tables = await knex('sqlite_schema').select('*')
 
-  return tables
-})
+// plugin
+app.register(transactionsRoutes)
 
 app
   .listen({
