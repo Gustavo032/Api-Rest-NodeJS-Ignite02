@@ -7,7 +7,7 @@ const app = fastify()
 // GET,POST, PUT, PATCH, DELETE
 
 // plugin
-app.register(transactionsRoutes)
+app.register(transactionsRoutes, { prefix: 'transactions' })
 
 app
   .listen({
