@@ -16,7 +16,7 @@ export async function transactionsRoutes(app: FastifyInstance) {
   app.get('/', async () => {
     const transactions = await knex('transactions').select('*')
 
-    // bom retornar sempre como objeto
+    // bom retornar sempre como objeto-- melhor pra adicionar e modificar informações futuramente
     return { total: transactions.length, transactions }
   })
 
