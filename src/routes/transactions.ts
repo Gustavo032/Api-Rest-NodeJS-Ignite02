@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import crypto from 'node:crypto'
+import crypto, { randomUUID } from 'node:crypto'
 import { knex } from '../database'
 
 // todo plugin precisa sem async
@@ -11,6 +11,9 @@ import { knex } from '../database'
 // 	amount: number,
 // 	type: 'credit' | 'debit'
 // }
+
+// Cookies <=> formas de manter contexto entre requisições:
+// @fastify/cookie
 
 export async function transactionsRoutes(app: FastifyInstance) {
   app.get('/', async () => {
@@ -53,10 +56,21 @@ export async function transactionsRoutes(app: FastifyInstance) {
       request.body,
     )
 
+    let sessionID = request.cookies.sessionID
+
+    if (!sessionID) {
+      sessionID = randomUUID()
+
+      reply.cookie('sessionID', sessionID, {
+        path: '/',
+        maxAge: 1000 * 60 * 60 * 24 * 1, // 1 day
+      })
+    }
     await knex('transactions').insert({
       id: crypto.randomUUID(),
       title,
       amount: type === 'credit' ? amount : amount * -1,
+      session_id: sessionID,
     })
 
     return reply.status(201).send()
