@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import crypto, { randomUUID } from 'node:crypto'
 import { knex } from '../database'
-import { checkSessionIdExists } from '../middlewares/check-session-id-exists'
+import { checksessionIdExists } from '../middlewares/check-session-id-exists'
 
 // todo plugin precisa sem async
 
@@ -20,7 +20,7 @@ export async function transactionsRoutes(app: FastifyInstance) {
   app.get(
     '/',
     {
-      preHandler: [checkSessionIdExists],
+      preHandler: [checksessionIdExists],
     },
     async (request, reply) => {
       const { sessionId } = request.cookies
@@ -34,25 +34,45 @@ export async function transactionsRoutes(app: FastifyInstance) {
     },
   )
 
-  app.get('/:id', async (request) => {
-    const getTransactionParamsSchema = z.object({
-      id: z.string().uuid(),
-    })
+  app.get(
+    '/:id',
+    {
+      preHandler: [checksessionIdExists],
+    },
+    async (request) => {
+      const getTransactionParamsSchema = z.object({
+        id: z.string().uuid(),
+      })
 
-    const { id } = getTransactionParamsSchema.parse(request.params)
+      const { id } = getTransactionParamsSchema.parse(request.params)
 
-    const transaction = await knex('transactions').where('id', id).first()
+      const { sessionId } = request.cookies
 
-    return { transaction }
-  })
+      const transaction = await knex('transactions')
+        .where({ session_id: sessionId, id })
+        .first()
 
-  app.get('/summary', async (req, reply) => {
-    const sumarry = await knex('transactions')
-      .sum('amount', { as: 'amount' })
-      .first()
+      return { transaction }
+    },
+  )
 
-    return { sumarry }
-  })
+  app.get(
+    '/summary',
+    {
+      preHandler: [checksessionIdExists],
+    },
+
+    async (req, reply) => {
+      const { sessionId } = req.cookies
+
+      const sumarry = await knex('transactions')
+        .where(`session_id`, sessionId)
+        .sum('amount', { as: 'amount' })
+        .first()
+
+      return { sumarry }
+    },
+  )
 
   app.post('/', async (request, reply) => {
     // validação dos dados vindo da req

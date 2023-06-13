@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
-export async function checkSessionIdExists(
+export async function checksessionIdExists(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
