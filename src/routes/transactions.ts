@@ -17,6 +17,11 @@ import { checksessionIdExists } from '../middlewares/check-session-id-exists'
 // @fastify/cookie
 
 export async function transactionsRoutes(app: FastifyInstance) {
+  app.addHook('preHandler', async (request, reply) => {
+    console.log(`[${request.method}] ${request.url}`)
+  })
+  // hooks pra global (no contexto)
+  // prehandler pra rotas especificas
   app.get(
     '/',
     {
