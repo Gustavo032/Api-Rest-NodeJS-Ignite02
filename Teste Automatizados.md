@@ -18,6 +18,7 @@
 ## front end
 - testes end to end... Imagina uma funcionalidade de login. Ele abre a página de login, a gente fala pra digitar o texto "diego@contabilizeae.com.br" no campo com ID email, clique no botão.
 ## back end
+- chamadas HTTP, websockets...
 - não temos a interface pro usuário
 - o usuário do backend é o front end
 - pode fazer chamadas HTTP
@@ -33,5 +34,5 @@
 
 ## prq não usar só testes e2e:
 - como eles simulam o usuário final, fazem a chamada, batem no bd e tals... ELE SÃO EXTREMAMENTE LENTOS!
-- 500ms em uma aplicação com 500 testes == 16 minutos
+- 500ms de teste em uma aplicação com 500 testes == 16 minutos
   
