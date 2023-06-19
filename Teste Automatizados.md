@@ -36,3 +36,14 @@
 - como eles simulam o usuário final, fazem a chamada, batem no bd e tals... ELE SÃO EXTREMAMENTE LENTOS!
 - 500ms de teste em uma aplicação com 500 testes == 16 minutos
   
+
+	# programa Vitest
+
+	- mesmo criador do vue
+	- framework de 
+	- esbuild
+	- TSX
+	- JSX
+	- vite
+	- instalação rápida
+	-   
