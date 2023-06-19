@@ -1,7 +1,12 @@
-import 'dotenv/config'
+import { config } from 'dotenv'
 import { z } from 'zod'
 
 // process.env
+if (process.env.NODE_ENV === 'test') {
+  config({ path: '.env.test' })
+} else {
+  config()
+}
 
 // schema == formato de dado
 // temos o yup, zod, joi

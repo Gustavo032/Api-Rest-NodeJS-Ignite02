@@ -26,8 +26,6 @@ describe('Transactions routes', () => {
       })
       // espero que o código de resposta seja igual a 201
       .expect(201)
-
-    console.log(response.get('Set-Cookie'))
   })
 
   // jamais escrever um teste que depende de outro test
@@ -55,6 +53,5 @@ describe('Transactions routes', () => {
         amount: 5000,
       }),
     ]),
-      console.log(listTransactionsResponse.body)
   })
 })
