@@ -1,6 +1,7 @@
-import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import request from 'supertest'
 import { app } from '../src/app'
+import { execSync } from 'child_process'
 
 describe('Transactions routes', () => {
   // configurando categoria. Um novo contexto "{}"
@@ -15,9 +16,17 @@ describe('Transactions routes', () => {
   afterAll(async () => {
     await app.close() // excluir a aplicação
   })
+
+  beforeEach(() => {
+    // vai rodar metodo down de todas migrations(zerar o banco de dados)
+    execSync('npm run knex migrate:rollback --all')
+    // rodar metodo up de novo
+    execSync('npm run knex migrate:latest')
+  })
+
   it('should be able to create a new transaction', async () => {
     // fazer a chamada HTTP p/ criar uma nova transação
-    const response = await request(app.server)
+    await request(app.server)
       .post('/transactions')
       .send({
         title: 'New transaction',
@@ -52,6 +61,6 @@ describe('Transactions routes', () => {
         title: 'New transaction',
         amount: 5000,
       }),
-    ]),
+    ])
   })
 })
