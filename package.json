@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+	"engines":{
+		"node":">=18"
+	},
   "scripts": {
     "test": "echo \"Nice Hacking!\" && npx vitest",
     "dev": "tsx watch src/server.ts",
     "knex": "node --no-warnings --loader tsx ./node_modules/knex/bin/cli.js",
     "lint": "eslint src --ext .ts --fix",
-		"build": "tsup src --out-dir build"
+    "build": "tsup src --out-dir build"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +21,7 @@
     "dotenv": "^16.0.3",
     "fastify": "^4.17.0",
     "knex": "^2.4.2",
-    "sqlite3": "^5.1.6",
+    "pg": "^8.11.0",
     "typescript": "^5.0.4",
     "zod": "^3.21.4"
   },
@@ -27,6 +30,7 @@
     "@types/node": "^20.1.7",
     "@types/supertest": "^2.0.12",
     "eslint": "^8.40.0",
+    "sqlite3": "^5.1.6",
     "supertest": "^6.3.3",
     "tsup": "^7.0.0",
     "tsx": "^3.12.7",
